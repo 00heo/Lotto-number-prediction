@@ -47,10 +47,10 @@ venv.bak/
 .env.local
 
 # Data
-data/raw/*
-data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!data/raw/*.csv
+!data/processed/*.csv
 *.db
 *.db-journal
 *.sqlite
