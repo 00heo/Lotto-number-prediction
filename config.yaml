@@ -1,0 +1,89 @@
+# 로또 번호 예측 시스템 설정
+
+# 데이터 수집
+data_collection:
+  source_url: "https://data.soledot.com/lottowinnumber/fo/lottowinnumberlist.sd"
+  start_round: 1
+  max_retries: 3
+  timeout: 30
+  update_schedule: "0 22 * * SAT"  # 매주 토요일 22:00
+
+# 데이터 저장
+storage:
+  database_path: "data/lotto.db"
+  raw_data_path: "data/raw/"
+  processed_data_path: "data/processed/"
+  backup_enabled: true
+
+# 분석 설정
+analysis:
+  min_data_points: 100  # 최소 분석 데이터 개수
+  recent_weight_rounds: 50  # 최근 회차 가중치 적용 범위
+  pattern_analysis:
+    consecutive_numbers: true
+    odd_even_ratio: true
+    range_distribution: true
+    correlation_analysis: true
+
+# 모델 설정
+models:
+  random_forest:
+    n_estimators: 200
+    max_depth: 20
+    min_samples_split: 5
+    random_state: 42
+
+  xgboost:
+    n_estimators: 300
+    max_depth: 10
+    learning_rate: 0.05
+    random_state: 42
+
+  neural_network:
+    hidden_layers: [128, 64, 32]
+    activation: "relu"
+    epochs: 100
+    batch_size: 32
+
+  ensemble:
+    weights:
+      statistical: 0.3
+      random_forest: 0.25
+      xgboost: 0.30
+      neural_network: 0.15
+
+# 예측 설정
+prediction:
+  top_n_combinations: 5
+  number_range: [1, 45]
+  numbers_per_draw: 6
+  confidence_threshold: 0.6
+
+# 대시보드 설정
+dashboard:
+  title: "🎰 한국 로또 6/45 번호 예측 시스템"
+  page_icon: "🎲"
+  layout: "wide"
+  theme: "dark"
+  refresh_interval: 3600  # 1시간
+
+# 로깅
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+  file: "logs/lotto_prediction.log"
+  rotation: "1 week"
+  retention: "1 month"
+
+# 특징 추출
+feature_engineering:
+  lookback_periods: [5, 10, 20, 50]
+  features:
+    - frequency
+    - recency
+    - co_occurrence
+    - range_distribution
+    - odd_even_ratio
+    - consecutive_pattern
+    - gap_analysis
+    - trend_score
